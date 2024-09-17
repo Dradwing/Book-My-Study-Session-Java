@@ -57,18 +57,33 @@ CREATE TABLE Sessions (
                           previewVideoURL VARCHAR(255)
 );
 
+CREATE TABLE SessionDescriptions (
+                                     descriptionId INT PRIMARY KEY AUTO_INCREMENT,
+                                     sessionId INT REFERENCES Sessions(sessionId),
+                                     contentType ENUM('paragraph', 'heading', 'bulletList'),
+                                     contentOrder INT -- To preserve the order of the content sections
+);
+
+CREATE TABLE DescriptionContent (
+                                    contentId INT PRIMARY KEY AUTO_INCREMENT,
+                                    descriptionId INT REFERENCES SessionDescriptions(descriptionId),
+                                    text VARCHAR(500), -- The actual content text
+                                    format ENUM('plain', 'bold', 'italic', 'link') DEFAULT 'plain',
+                                    href VARCHAR(255) DEFAULT NULL -- Optional for links
+);
+
 -- Many-to-many relationship between Sessions and Topics
 CREATE TABLE SessionTopics (
+                               sessionTopicId INT PRIMARY KEY AUTO_INCREMENT,
                                sessionId INT REFERENCES Sessions(sessionId),
-                               topicId INT REFERENCES Topics(topicId),
-                               PRIMARY KEY(sessionId, topicId)
+                               topicId INT REFERENCES Topics(topicId)
 );
 
 -- Many-to-many relationship between Sessions and SubTopics
 CREATE TABLE SessionSubTopics (
-                                  sessionId INT REFERENCES Sessions(sessionId),
+                                  sessionTopicId INT REFERENCES SessionTopics(sessionTopicId),
                                   subTopicId INT REFERENCES SubTopics(subTopicId),
-                                  PRIMARY KEY(sessionId, subTopicId)
+                                  PRIMARY KEY(sessionTopicId, subTopicId)
 );
 
 -- Many-to-many relationship between Sessions and Features

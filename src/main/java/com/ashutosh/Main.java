@@ -1,4 +1,4 @@
-package com.ashutosh.client;
+package com.ashutosh;
 
 import com.ashutosh.bean.Tutor;
 import com.ashutosh.bean.User;
@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Welcome to the app");
 
         Tutor tutor =new Tutor();
-        TutorService tutorService=new TutorService();
+
 
         System.out.println("Enter you email: ");
         tutor.setEmailId(scanner.next());
@@ -37,6 +37,6 @@ public class Main {
         System.out.println("Enter your image url: ");
         tutor.setImageURL(scanner.next());
 
-        tutorService.registerTutor(tutor);
+
     }
 }

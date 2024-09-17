@@ -4,13 +4,24 @@ import com.ashutosh.DAO.StudentDAO;
 
 import com.ashutosh.bean.Student;
 import com.ashutosh.bean.User;
+import java.util.*;
 
-public class StudentService {
+public class StudentService extends UserService {
+    private StudentDAO studentDAO;
 
-    private StudentDAO studentDao=new StudentDAO();
+    public StudentService(StudentDAO studentDAO) {
+        this.studentDAO = studentDAO;
+    }
 
-    public Student registerStudent(Student student) {
+    public List<Student> getAllStudents() {
+        return studentDAO.findAllStudents();
+    }
 
+    public Student getStudentById(int studentId) {
+        return studentDAO.findStudentById(studentId);
+    }
+
+    public Student addStudent(Student student) {
         User studentUser =new User();
 
         studentUser.setEmailId(student.getEmailId());
@@ -18,15 +29,8 @@ public class StudentService {
         studentUser.setPhoneNumber(student.getPhoneNumber());
         studentUser.setUserName(student.getUserName());
         studentUser.setRole(User.Role.Student);
+        student.setRole(User.Role.Student);
 
-        studentDao.addUser(studentUser);
-        return studentDao.addStudent(studentUser, student);
+        return studentDAO.addStudent(studentUser, student);
     }
-
-
-
-
-
-
-
 }

@@ -5,12 +5,17 @@ import com.ashutosh.DAO.TutorDAO;
 import com.ashutosh.bean.Tutor;
 import com.ashutosh.bean.User;
 
-public class TutorService {
+import java.util.*;
 
-    private TutorDAO tutorDao=new TutorDAO();
-    private SessionService sessionService=new SessionService();
+public class TutorService extends UserService {
 
-    public Tutor registerTutor(Tutor tutor) {
+    private final TutorDAO tutorDAO;
+
+    public TutorService(TutorDAO tutorDAO){
+        this.tutorDAO = tutorDAO;
+    }
+
+    public Tutor addTutor(Tutor tutor) {
 
         User tutorUser =new User();
 
@@ -19,15 +24,21 @@ public class TutorService {
         tutorUser.setPhoneNumber(tutor.getPhoneNumber());
         tutorUser.setUserName(tutor.getUserName());
         tutorUser.setRole(User.Role.Tutor);
+        tutor.setRole(User.Role.Tutor);
 
-        tutorDao.addUser(tutorUser);
-        return tutorDao.addTutor(tutorUser, tutor);
+        return tutorDAO.addTutor(tutorUser, tutor);
     }
 
+    public List<Tutor> getAllTutors() {
+        return tutorDAO.findAllTutors();
+    }
 
+    public Tutor getTutorById(int tutorId) {
+        return tutorDAO.findTutorById(tutorId);
+    }
 
-
-
-
+    public Tutor updateTutor(Tutor tutor) {
+        return tutorDAO.updateTutor(tutor);
+    }
 
 }

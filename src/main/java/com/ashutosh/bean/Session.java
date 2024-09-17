@@ -5,80 +5,98 @@ import java.util.List;
 public class Session {
 
     // Fields representing the main Session schema
+    private int sessionId;
+    private int tutorId;  // Added tutorId to match the database schema
     private String name;
     private int classLevel; // "class" is a reserved keyword in Java, so renamed to classLevel
     private String subject;
     private String language;
-    private List<Topic> topics;
     private int duration;
     private double price;
     private double rating;
     private int bookings;
-    private String image;
-    private String previewVideo;
-    private List<Features> features;
+    private String imageURL; // Changed field name to match schema
+    private String previewVideoURL; // Changed field name to match schema
+    private List<Integer> featureIds; // Changed to store featureIds
+    private List<Topic> topics;
     private List<DescriptionContent> description;
 
-    public enum Features {
-        Live_1_1_Tutoring,
-        Notes,
-        Practice_Tests,
-        Doubt_Chat_Support,
-        Flexible_Timings,
-        Session_Recordings,
-        Materials_List,
-        Writing_Prompts,
-        Discussion_Forums,
-        Virtual_Whiteboard,
-        Group_Discussions,
-        Feedback_Sessions,
-        Group_Projects
-    }
+    public static class Topic{
 
-    // Inner class to represent the Topic structure
-    public static class Topic {
+        private int topicId;
+        private int sessionTopicId;
         private String topicName;
-        private List<String> subTopics;
+        private List<SubTopic> subTopics;
 
-        // Getters and Setters
+
+        public static class SubTopic{
+
+            private int subTopicId;
+            private String subTopicName;
+
+            public int getSubTopicId() {
+                return subTopicId;
+            }
+            public void setSubTopicId(int subTopicId) {
+                this.subTopicId = subTopicId;
+            }
+            public String getSubTopicName() {
+                return subTopicName;
+            }
+            public void setSubTopicName(String subTopicName) {
+                this.subTopicName = subTopicName;
+            }
+        }
+
+        public List<SubTopic> getSubTopics() {
+            return subTopics;
+        }
+        public void setSubTopics(List<SubTopic> subTopics) {
+            this.subTopics = subTopics;
+        }
+
+        public int getTopicId() {
+            return topicId;
+        }
+        public void setTopicId(int topicId) {
+            this.topicId = topicId;
+        }
+        public int getSessionTopicId() {
+            return sessionTopicId;
+        }
+        public void setSessionTopicId(int sessionTopicId) {
+            this.sessionTopicId = sessionTopicId;
+        }
         public String getTopicName() {
             return topicName;
         }
-
         public void setTopicName(String topicName) {
             this.topicName = topicName;
-        }
-
-        public List<String> getSubTopics() {
-            return subTopics;
-        }
-
-        public void setSubTopics(List<String> subTopics) {
-            this.subTopics = subTopics;
         }
     }
 
     // Inner class to represent the Description content
-
     public static class DescriptionContent {
 
-        public enum ContentType{
+        public enum ContentType {
             paragraph,
             heading,
             bulletList
         }
+
         private ContentType type;
         private List<Content> content;
 
         // Inner class to represent Content structure
         public static class Content {
 
-            public enum Format{
+            public enum Format {
                 plain,
                 bold,
                 italic,
                 link
             }
+
             private String text;
             private Format format; // plain, bold, italic, link
             private String href;
@@ -128,6 +146,16 @@ public class Session {
     }
 
     // Getters and Setters
+
+    public int getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -158,14 +186,6 @@ public class Session {
 
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public List<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
     }
 
     public int getDuration() {
@@ -200,28 +220,36 @@ public class Session {
         this.bookings = bookings;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
-    public String getPreviewVideo() {
-        return previewVideo;
+    public String getPreviewVideoURL() {
+        return previewVideoURL;
     }
 
-    public void setPreviewVideo(String previewVideo) {
-        this.previewVideo = previewVideo;
+    public void setPreviewVideoURL(String previewVideoURL) {
+        this.previewVideoURL = previewVideoURL;
     }
 
-    public List<Features> getFeatures() {
-        return features;
+    public List<Integer> getFeatureIds() {
+        return featureIds;
     }
 
-    public void setFeatures(List<Features> features) {
-        this.features = features;
+    public void setFeatureIds(List<Integer> featureIds) {
+        this.featureIds = featureIds;
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 
     public List<DescriptionContent> getDescription() {

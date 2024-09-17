@@ -18,21 +18,8 @@ VALUES ('tutor1', 'user2', '123412341234', 'http://example.com/tutor1.png');
 INSERT INTO Students (studentId, userId)
 VALUES ('student1', 'user3');
 
--- Insert Topics (for class 10, subject Mathematics)
-INSERT INTO Topics (classLevel, subject, topicName)
-VALUES (10, 'Mathematics', 'Algebra'),
-       (10, 'Mathematics', 'Geometry');
-
--- Insert SubTopics for Algebra
-INSERT INTO SubTopics (topicId, subTopicName)
-VALUES (1, 'Linear Equations'),
-       (1, 'Quadratic Equations');
-
--- Insert SubTopics for Geometry
-INSERT INTO SubTopics (topicId, subTopicName)
-VALUES (2, 'Triangles'),
-       (2, 'Circles');
-
+-- Insert Features
+USE BookMyStudySession;
 -- Insert Features
 INSERT INTO Features (featureName)
 VALUES ('Live 1:1 Tutoring'),
@@ -40,7 +27,15 @@ VALUES ('Live 1:1 Tutoring'),
        ('Practice Tests'),
        ('Doubt-Chat Support'),
        ('Flexible Timings'),
-       ('Session Recordings');
+       ('Session Recordings'),
+       ('Discussion Forums' ),
+       ('Group Discussions'),
+       ('Materials List'),
+       ('Writing Prompts'),
+       ('Virtual Whiteboard'),
+       ('Feedback Sessions'),
+       ('Group Projects');
+
 
 -- Insert a Session
 INSERT INTO Sessions (tutorId, name, classLevel, subject, duration, price, rating, bookings, imageURL, previewVideoURL)
@@ -68,3 +63,4 @@ VALUES ('student1', 'tutor1', 1, 'Excellent session, learned a lot!', 5, NOW(), 
 -- Insert a booking made by a student for a session
 INSERT INTO Bookings (studentId, sessionId, startingDate, endingDate, paymentStatus)
 VALUES ('student1', 1, '2024-09-15', '2024-09-22', TRUE);
+
